@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Float — Templates finance perso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue: #1A4FBB;
+      --blue-deep: #0D2D6B;
+      --blue-light: #D6E4FF;
+      --blue-mid: #4A7FD4;
+      --cream: #F0F7FF;
+      --cream-dark: #E0EDFF;
+      --dark: #0A1628;
+      --mid: #2D5AA0;
+      --light: #6B8FC4;
+      --white: #FFFFFF;
+      --gold: #F2C94C;
+      --green: #27AE60;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,22,40,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(26,79,187,0.2);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--white); letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--blue-mid); font-style: italic; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      font-size: 0.9rem; font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-cta {
+      background: var(--blue);
+      color: white; border: none;
+      padding: 10px 24px; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--blue-mid); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(26,79,187,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 100% 100%, rgba(74,127,212,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 0% 80%, rgba(242,201,76,0.08) 0%, transparent 60%);
+    }
+
+    /* Animated grid */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(26,79,187,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,79,187,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(26,79,187,0.2);
+      border: 1px solid rgba(26,79,187,0.4);
+      color: #90B8FF; padding: 8px 20px;
+      border-radius: 50px; font-size: 0.82rem; font-weight: 500;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900; line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 900px; margin-bottom: 8px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero h1 .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
+      font-style: italic;
+    }
+    .hero h1 .accent { color: #90B8FF; }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.5);
+      max-width: 520px; margin: 24px auto 52px;
+      line-height: 1.7; font-weight: 300;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: white; border: none;
+      padding: 16px 36px; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 8px 32px rgba(26,79,187,0.4);
+    }
+    .btn-primary:hover { background: var(--blue-mid); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(26,79,187,0.5); }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 16px 36px; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 400;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+    /* Floating stats */
+    .hero-stats {
+      display: flex; gap: 48px; justify-content: center;
+      margin-top: 72px; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 900;
+      color: #90B8FF; display: block; line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section { padding: 100px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      color: #90B8FF; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.15;
+      color: white; margin-bottom: 16px;
+    }
+    .section-title em { color: #90B8FF; font-style: italic; }
+    .section-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.5);
+      max-width: 560px; line-height: 1.7; margin-bottom: 64px;
+    }
+
+    /* ── FREE TEMPLATE ── */
+    .free-section {
+      background: linear-gradient(135deg, rgba(26,79,187,0.15) 0%, rgba(13,45,107,0.3) 100%);
+      border: 1px solid rgba(26,79,187,0.3);
+      border-radius: 32px;
+      padding: 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .free-section::before {
+      content: 'GRATUIT';
+      position: absolute; top: 28px; right: -30px;
+      background: var(--gold);
+      color: var(--dark); font-weight: 700; font-size: 0.75rem;
+      padding: 6px 48px; transform: rotate(45deg);
+      letter-spacing: 0.1em;
+    }
+
+    .free-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 700;
+      margin-bottom: 16px; line-height: 1.2;
+    }
+    .free-text p {
+      color: rgba(255,255,255,0.6); line-height: 1.7;
+      margin-bottom: 24px; font-size: 0.95rem;
+    }
+    .free-features { list-style: none; margin-bottom: 32px; }
+    .free-features li {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.7); font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .free-features li::before {
+      content: '✓'; color: #90B8FF; font-weight: 700; font-size: 0.85rem;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(26,79,187,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .email-capture { display: flex; flex-direction: column; gap: 12px; }
+    .email-capture input {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white; padding: 14px 20px;
+      border-radius: 12px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-capture input::placeholder { color: rgba(255,255,255,0.3); }
+    .email-capture input:focus { border-color: var(--blue-mid); }
+    .email-capture button {
+      background: var(--blue); color: white; border: none;
+      padding: 14px; border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .email-capture button:hover { background: var(--blue-mid); }
+    .capture-note { font-size: 0.78rem; color: rgba(255,255,255,0.3); text-align: center; }
+
+    /* Mock Excel preview */
+    .excel-preview {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; overflow: hidden;
+    }
+    .excel-header {
+      background: rgba(26,79,187,0.3);
+      padding: 12px 16px;
+      display: flex; gap: 8px; align-items: center;
+    }
+    .excel-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .excel-title { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-left: 8px; }
+    .excel-tabs {
+      display: flex; gap: 2px;
+      background: rgba(0,0,0,0.2);
+      padding: 8px 12px 0;
+    }
+    .excel-tab {
+      padding: 6px 14px; border-radius: 6px 6px 0 0;
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.04); cursor: pointer;
+    }
+    .excel-tab.active {
+      background: rgba(26,79,187,0.4);
+      color: #90B8FF;
+    }
+    .excel-body { padding: 16px; }
+    .excel-row {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4px; margin-bottom: 4px;
+    }
+    .excel-cell {
+      padding: 7px 10px; border-radius: 4px;
+      font-size: 0.72rem; font-family: monospace;
+    }
+    .ec-head { background: rgba(26,79,187,0.4); color: #90B8FF; font-weight: 600; text-align: center; }
+    .ec-label { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
+    .ec-input { background: rgba(255,255,255,0.08); color: #7EC8FF; text-align: right; border: 1px solid rgba(26,79,187,0.3); }
+    .ec-calc { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5); text-align: right; }
+    .ec-total { background: rgba(26,79,187,0.2); color: white; font-weight: 600; text-align: right; }
+    .ec-pos { color: #4CAF50; }
+    .ec-neg { color: #FF6B6B; }
+
+    /* ── SHOP ── */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 32px;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(26,79,187,0.5);
+      box-shadow: 0 20px 60px rgba(26,79,187,0.2);
+    }
+    .product-card.featured {
+      border-color: rgba(26,79,187,0.4);
+      background: linear-gradient(135deg, rgba(26,79,187,0.12) 0%, rgba(13,45,107,0.2) 100%);
+    }
+    .product-card.featured::after {
+      content: '⭐ POPULAIRE';
+      position: absolute; top: 16px; right: 16px;
+      background: var(--gold); color: var(--dark);
+      font-size: 0.68rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 50px;
+      letter-spacing: 0.06em;
+    }
+
+    .product-icon {
+      font-size: 2.5rem; margin-bottom: 20px; display: block;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .product-desc {
+      font-size: 0.88rem; color: rgba(255,255,255,0.5);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .product-features {
+      list-style: none; margin-bottom: 28px;
+    }
+    .product-features li {
+      font-size: 0.82rem; color: rgba(255,255,255,0.55);
+      padding: 4px 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .product-features li::before {
+      content: '→'; color: #90B8FF; font-size: 0.75rem;
+    }
+    .product-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 900;
+      color: white;
+    }
+    .product-price .currency { font-size: 1.1rem; vertical-align: top; margin-top: 4px; display: inline-block; }
+    .product-price.free-price { color: var(--gold); font-size: 1.4rem; }
+    .btn-buy {
+      background: var(--blue); color: white; border: none;
+      padding: 12px 24px; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-buy:hover { background: var(--blue-mid); transform: scale(1.03); }
+    .btn-buy.btn-free {
+      background: transparent;
+      border: 1px solid var(--gold); color: var(--gold);
+    }
+    .btn-buy.btn-free:hover { background: var(--gold); color: var(--dark); }
+    .coming-soon-badge {
+      position: absolute; inset: 0;
+      background: rgba(10,22,40,0.7);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 24px;
+    }
+    .coming-soon-badge span {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 24px; border-radius: 50px;
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter-section {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #0A1F5C 100%);
+      border-radius: 32px; padding: 72px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .newsletter-section::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(74,127,212,0.15);
+    }
+    .newsletter-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700;
+      margin-bottom: 16px; line-height: 1.2;
+    }
+    .newsletter-text p {
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7; margin-bottom: 8px;
+    }
+    .newsletter-topics {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;
+    }
+    .topic-pill {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 6px 14px; border-radius: 50px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.6);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px 48px 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: gap;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: white;
+    }
+    .footer-logo span { color: var(--blue-mid); font-style: italic; }
+    footer p {
+      font-size: 0.8rem; color: rgba(255,255,255,0.25);
+      max-width: 480px; line-height: 1.6;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #0F1E3A;
+      border: 1px solid rgba(26,79,187,0.3);
+      border-radius: 24px; padding: 48px;
+      max-width: 480px; width: 100%;
+      position: relative;
+      animation: fadeUp 0.3s ease both;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; color: rgba(255,255,255,0.4);
+      font-size: 1.5rem; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: white; }
+    .modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .modal p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 28px; line-height: 1.6; }
+    .modal-product-name {
+      background: rgba(26,79,187,0.2);
+      border: 1px solid rgba(26,79,187,0.3);
+      padding: 12px 16px; border-radius: 10px;
+      font-size: 0.9rem; color: #90B8FF;
+      margin-bottom: 24px;
+    }
+    .modal input {
+      width: 100%; background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white; padding: 14px 16px;
+      border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; outline: none; margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .modal input:focus { border-color: var(--blue-mid); }
+    .modal input::placeholder { color: rgba(255,255,255,0.3); }
+    .modal .btn-primary { width: 100%; text-align: center; padding: 16px; border-radius: 12px; }
+    .modal-note { font-size: 0.75rem; color: rgba(255,255,255,0.25); text-align: center; margin-top: 12px; }
+    .stripe-badge {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; margin-top: 16px;
+      color: rgba(255,255,255,0.3); font-size: 0.75rem;
+    }
+    .stripe-badge::before { content: '🔒'; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .free-section, .newsletter-section { grid-template-columns: 1fr; gap: 40px; padding: 40px 28px; }
+      .free-section::before { display: none; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">The <span>Float</span></div>
+  <div class="nav-links">
+    <a href="#templates">Templates</a>
+    <a href="#newsletter">Newsletter</a>
+    <a href="#free">Template gratuit</a>
+  </div>
+  <a href="#free" class="nav-cta">Template gratuit 🎁</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">📊 Templates Excel · Finance perso · Débutants</div>
+    <h1>
+      Reprends le contrôle<br/>
+      <span class="line2">de ton <span class="accent">argent.</span></span>
+    </h1>
+    <p class="hero-sub">Des templates Excel clé en main pour gérer ton budget, simuler ton crédit immobilier et suivre tes investissements. Sans jargon.</p>
+    <div class="hero-actions">
+      <a href="#templates" class="btn-primary">Voir les templates →</a>
+      <a href="#free" class="btn-ghost">Template gratuit 🎁</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">4</span>
+        <div class="hero-stat-label">Templates</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">12€</span>
+        <div class="hero-stat-label">Prix unitaire</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">0€</span>
+        <div class="hero-stat-label">Template offert</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">5'</span>
+        <div class="hero-stat-label">Pour démarrer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE TEMPLATE -->
+<section class="section" id="free">
+  <div class="section-inner">
+    <div class="free-section reveal">
+      <div class="free-text">
+        <div class="section-tag">🎁 Offert</div>
+        <h3>Mon premier tableau de bord financier</h3>
+        <p>Le template de démarrage pour tous ceux qui veulent enfin avoir une vision claire de leurs finances. Entre ton email, reçois le fichier immédiatement.</p>
+        <ul class="free-features">
+          <li>Budget mensuel avec écarts automatiques</li>
+          <li>Suivi des dépenses sur 12 mois</li>
+          <li>Tableau de bord épargne & investissements</li>
+          <li>Simulateur retraite intégré</li>
+          <li>Guide pour débutants inclus</li>
+        </ul>
+        <div class="email-capture">
+          <input type="email" id="freeEmail" placeholder="ton@email.com"/>
+          <button onclick="handleFreeDownload()">Recevoir le template gratuit 💙</button>
+          <p class="capture-note">Pas de spam. 1 newsletter par semaine max.</p>
+        </div>
+      </div>
+      <div class="excel-preview">
+        <div class="excel-header">
+          <div class="excel-dot" style="background:#FF5F57"></div>
+          <div class="excel-dot" style="background:#FEBC2E"></div>
+          <div class="excel-dot" style="background:#28C840"></div>
+          <span class="excel-title">the-float-dashboard.xlsx</span>
+        </div>
+        <div class="excel-tabs">
+          <div class="excel-tab active">🏠 Tableau de bord</div>
+          <div class="excel-tab">📅 Suivi</div>
+          <div class="excel-tab">🎯 Retraite</div>
+        </div>
+        <div class="excel-body">
+          <div class="excel-row">
+            <div class="excel-cell ec-head">Catégorie</div>
+            <div class="excel-cell ec-head">Prévu</div>
+            <div class="excel-cell ec-head">Réel</div>
+            <div class="excel-cell ec-head">Écart</div>
+          </div>
+          <div class="excel-row">
+            <div class="excel-cell ec-label">🏠 Loyer</div>
+            <div class="excel-cell ec-input">850 €</div>
+            <div class="excel-cell ec-calc">872 €</div>
+            <div class="excel-cell ec-calc ec-neg">-22 €</div>
+          </div>
+          <div class="excel-row">
+            <div class="excel-cell ec-label">🛒 Alimentation</div>
+            <div class="excel-cell ec-input">300 €</div>
+            <div class="excel-cell ec-calc">285 €</div>
+            <div class="excel-cell ec-calc ec-pos">+15 €</div>
+          </div>
+          <div class="excel-row">
+            <div class="excel-cell ec-label">🏦 Épargne</div>
+            <div class="excel-cell ec-input">300 €</div>
+            <div class="excel-cell ec-calc">300 €</div>
+            <div class="excel-cell ec-calc">0 €</div>
+          </div>
+          <div class="excel-row" style="margin-top:6px">
+            <div class="excel-cell ec-total">TOTAL</div>
+            <div class="excel-cell ec-total">1 900 €</div>
+            <div class="excel-cell ec-total">1 885 €</div>
+            <div class="excel-cell ec-total ec-pos">+15 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="section" id="templates">
+  <div class="section-inner">
+    <div class="section-tag">💰 Boutique</div>
+    <h2 class="section-title">Tous les <em>templates</em></h2>
+    <p class="section-sub">Des fichiers Excel professionnels conçus pour les débutants. Calculs automatiques, guides intégrés, prêts en 5 minutes.</p>
+
+    <div class="shop-grid">
+
+      <!-- Template 1 - Free -->
+      <div class="product-card reveal">
+        <span class="product-icon">🏠</span>
+        <div class="product-name">Tableau de bord financier</div>
+        <div class="product-desc">Ta vue d'ensemble complète : budget, épargne, investissements et simulateur retraite dans un seul fichier.</div>
+        <ul class="product-features">
+          <li>Budget mensuel automatisé</li>
+          <li>Suivi 12 mois</li>
+          <li>Simulateur retraite</li>
+          <li>Score financier personnalisé</li>
+        </ul>
+        <div class="product-footer">
+          <div class="product-price free-price">Gratuit</div>
+          <a href="#free" class="btn-buy btn-free">Obtenir →</a>
+        </div>
+      </div>
+
+      <!-- Template 2 - Crédit immo -->
+      <div class="product-card featured reveal" style="transition-delay:0.1s">
+        <span class="product-icon">🏡</span>
+        <div class="product-name">Simulateur crédit immobilier</div>
+        <div class="product-desc">Simule ton prêt immobilier, compare les offres, calcule le coût total et trouve la mensualité idéale.</div>
+        <ul class="product-features">
+          <li>Tableau d'amortissement complet</li>
+          <li>Comparateur de 3 offres</li>
+          <li>Impact du taux d'assurance</li>
+          <li>Calcul frais de notaire</li>
+          <li>Capacité d'emprunt</li>
+        </ul>
+        <div class="product-footer">
+          <div class="product-price"><span class="currency">€</span>12</div>
+          <button class="btn-buy" onclick="openModal('Simulateur crédit immobilier', '12')">Acheter →</button>
+        </div>
+      </div>
+
+      <!-- Template 3 - Tracker investissements -->
+      <div class="product-card reveal" style="transition-delay:0.2s; position:relative;">
+        <span class="product-icon">📈</span>
+        <div class="product-name">Tracker investissements PEA / CTO</div>
+        <div class="product-desc">Suis tes investissements en bourse, calcule ta performance réelle et visualise la répartition de ton portefeuille.</div>
+        <ul class="product-features">
+          <li>Suivi PEA & Compte-titres</li>
+          <li>Performance vs indice de référence</li>
+          <li>Répartition par secteur/géo</li>
+          <li>Calcul plus-values & fiscalité</li>
+          <li>Historique des dividendes</li>
+        </ul>
+        <div class="product-footer">
+          <div class="product-price"><span class="currency">€</span>12</div>
+          <button class="btn-buy" onclick="openModal('Tracker investissements PEA / CTO', '12')">Acheter →</button>
+        </div>
+        <div class="coming-soon-badge"><span>🔜 Bientôt disponible</span></div>
+      </div>
+
+      <!-- Template 4 - Patrimoine -->
+      <div class="product-card reveal" style="transition-delay:0.3s; position:relative;">
+        <span class="product-icon">💎</span>
+        <div class="product-name">Tableau de bord Patrimoine</div>
+        <div class="product-desc">Vue 360° de ton patrimoine : immobilier, financier, épargne, dettes. Le fichier complet pour piloter ta richesse nette.</div>
+        <ul class="product-features">
+          <li>Bilan patrimonial complet</li>
+          <li>Actifs immobiliers & financiers</li>
+          <li>Évolution de la richesse nette</li>
+          <li>Objectifs patrimoniaux</li>
+          <li>Projections à 10/20/30 ans</li>
+        </ul>
+        <div class="product-footer">
+          <div class="product-price"><span class="currency">€</span>15</div>
+          <button class="btn-buy" onclick="openModal('Tableau de bord Patrimoine', '15')">Acheter →</button>
+        </div>
+        <div class="coming-soon-badge"><span>🔜 Bientôt disponible</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section" id="newsletter">
+  <div class="section-inner">
+    <div class="newsletter-section reveal">
+      <div class="newsletter-text">
+        <div class="section-tag">✉️ Newsletter</div>
+        <h2>La finance perso,<br/>une fois par semaine.</h2>
+        <p>Chaque semaine, un email court sur un sujet concret : assurance-vie, PEA, retraite, fiscalité, immobilier...</p>
+        <p>Zéro jargon. Zéro conseil personnalisé. Juste de l'éducation financière claire.</p>
+        <div class="newsletter-topics">
+          <span class="topic-pill">🏦 Assurance-vie</span>
+          <span class="topic-pill">📊 PEA</span>
+          <span class="topic-pill">🏡 Immobilier</span>
+          <span class="topic-pill">💰 Épargne</span>
+          <span class="topic-pill">🎯 Retraite</span>
+          <span class="topic-pill">📋 Fiscalité</span>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden;">
+          <div style="background:rgba(26,79,187,0.2); padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:0.78rem; color:rgba(255,255,255,0.4);">De : The Float 💙</div>
+            <div style="font-size:0.88rem; font-weight:500; margin-top:4px;">Les 3 erreurs financières que font tous les jeunes actifs 💸</div>
+          </div>
+          <div style="padding:20px;">
+            <p style="font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:12px;">Tu touches ton salaire, tu paies tes charges, et le reste... reste là. Sur ton compte. À ne rien faire.</p>
+            <div style="background:rgba(26,79,187,0.15); border-left:2px solid #90B8FF; padding:10px 14px; border-radius:0 8px 8px 0; font-size:0.82rem; color:#90B8FF; margin-bottom:12px;">L'inflation grignote ton pouvoir d'achat chaque année. Même un Livret A est infiniment mieux que rien.</div>
+            <p style="font-size:0.78rem; color:rgba(255,255,255,0.3); font-style:italic;">→ Suite dans la newsletter...</p>
+          </div>
+        </div>
+        <div class="email-capture" style="margin-top:20px;">
+          <input type="email" id="newsletterEmail" placeholder="ton@email.com"/>
+          <button onclick="handleNewsletterSubscribe()">S'abonner gratuitement 💙</button>
+          <p class="capture-note">Gratuit · Désabonnement en 1 clic</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">The <span>Float</span></div>
+  <p>Contenu éducatif uniquement. The Float ne fournit pas de conseil en investissement personnalisé. Les informations partagées sont à titre pédagogique.</p>
+  <p style="color:rgba(255,255,255,0.2); font-size:0.75rem;">© 2025 The Float · La finance, sans détour.</p>
+</footer>
+
+<!-- MODAL ACHAT -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Finaliser l'achat</h3>
+    <p>Tu vas être redirigé vers notre page de paiement sécurisée Stripe.</p>
+    <div class="modal-product-name" id="modalProductName">Template</div>
+    <input type="email" id="modalEmail" placeholder="ton@email.com"/>
+    <p style="font-size:0.78rem; color:rgba(255,255,255,0.3); margin-bottom:16px;">Le template sera envoyé à cette adresse après paiement.</p>
+    <button class="btn-primary" onclick="handlePurchase()">Payer <span id="modalPrice">12</span>€ avec Stripe →</button>
+    <p class="modal-note">Paiement 100% sécurisé</p>
+    <div class="stripe-badge">Paiement sécurisé par Stripe</div>
+  </div>
+</div>
+
+<!-- SUCCESS TOAST -->
+<div id="toast" style="
+  position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(100px);
+  background:#1A4FBB; color:white; padding:14px 28px; border-radius:50px;
+  font-size:0.9rem; font-weight:500; z-index:300;
+  transition:transform 0.3s ease; box-shadow:0 8px 32px rgba(26,79,187,0.4);
+  white-space:nowrap;
+">✅ Email enregistré ! Vérifie ta boîte mail.</div>
+
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Modal ──
+  let currentProduct = '';
+  let currentPrice = '';
+
+  function openModal(name, price) {
+    currentProduct = name;
+    currentPrice = price;
+    document.getElementById('modalProductName').textContent = '📊 ' + name + ' — ' + price + '€';
+    document.getElementById('modalPrice').textContent = price;
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  // ── Toast ──
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => { toast.style.transform = 'translateX(-50%) translateY(100px)'; }, 3500);
+  }
+
+  // ── Free download ──
+  function handleFreeDownload() {
+    const email = document.getElementById('freeEmail').value;
+    if (!email || !email.includes('@')) {
+      showToast('⚠️ Entre une adresse email valide');
+      return;
+    }
+    // TODO: remplacer par l'API Mailjet pour ajouter le contact et envoyer le template
+    // fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email, type: 'free' }) })
+    showToast('🎁 Template envoyé ! Vérifie ta boîte mail.');
+    document.getElementById('freeEmail').value = '';
+  }
+
+  // ── Newsletter subscribe ──
+  function handleNewsletterSubscribe() {
+    const email = document.getElementById('newsletterEmail').value;
+    if (!email || !email.includes('@')) {
+      showToast('⚠️ Entre une adresse email valide');
+      return;
+    }
+    // TODO: remplacer par l'API Mailjet
+    showToast('💙 Abonnement confirmé ! À très vite.');
+    document.getElementById('newsletterEmail').value = '';
+  }
+
+  // ── Purchase ──
+  function handlePurchase() {
+    const email = document.getElementById('modalEmail').value;
+    if (!email || !email.includes('@')) {
+      showToast('⚠️ Entre une adresse email valide');
+      return;
+    }
+    // TODO: remplacer par le lien Stripe Payment Link du bon produit
+    // window.location.href = 'https://buy.stripe.com/VOTRE_LIEN_STRIPE';
+    showToast('🔒 Redirection vers Stripe...');
+    closeModal();
+  }
+
+  // ── Excel tabs ──
+  document.querySelectorAll('.excel-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.excel-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
